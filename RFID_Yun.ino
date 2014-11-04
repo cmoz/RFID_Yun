@@ -97,52 +97,6 @@
   digitalWrite(LEDWhite, LOW);
   */
            
-       // read the values written to EEPROM which is the last boolean
-       // value from the scanned tags     
-       /*
-      int card1 = EEPROM.read(MY_BOOL1);
-      int card2 = EEPROM.read(MY_BOOL2);
-      int card3 = EEPROM.read(MY_BOOL3);
-      int card4 = EEPROM.read(MY_BOOL4);
-      int card5 = EEPROM.read(MY_BOOL5);
-      
-      if (card1 == 0) {
-        tag1Card = false;
-      } else if (card1 == 1){
-        tag1Card = true;
-        driverName = "Mia Wallace";
-        rfidNumber = 7546735624;
-      }
-      if (card2 == 0) {
-        tag2Card = false;
-      } else if (card2 == 1) {
-        tag2Card = true;
-        driverName = "Winston Wolfe";
-        rfidNumber = 7546737648;
-      }
-      if (card3 == 0) {
-        tag3Card = false;
-      } else if (card3 == 1) {
-        tag3Card = true;
-        driverName = "Jules Winnfield";
-        rfidNumber = 2494735624;
-      }
-      if (card4 == 0) {
-        tag4Card = false;
-      } else if (card4 == 1) {
-        tag4Card = true;
-        driverName = "Vincent Vega";
-        rfidNumber = 894735624;
-      } 
-      if (card5 == 0) {
-        tag5Card = false;
-      } else if (card5 == 1) {
-        tag5Card = true;
-        driverName = "Marsellus Wallace";
-        rfidNumber = 4673566;
-      }
-      */
-  
   Bridge.begin();	// Initialize the Bridge, for communication with linux chip.                          
   Serial.println("set up ready");  
   //setLEDsToLow();
@@ -165,7 +119,7 @@
   // Wait until tag is gone
   while(!digitalRead(TAG)); 
     
-   setLEDsToLow(); // checks the state of the tagCards 
+   //setLEDsToLow(); // checks the state of the tagCards 
    
    // send recent tag scans to data.sparkfun
    //sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
@@ -182,13 +136,15 @@
 
 
 void sendStringToSpakfun(String str) {
-  String strToSend = "curl -m 5 -k -X POST http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l -H 'Phant-Private-Key: D6n7nDkMYlFY1Exby4Mb' -d '{" + str + "}'";
+  String strToSend = "curl -X POST http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l -H 'Phant-Private-Key: D6n7nDkMYlFY1Exby4Mb' -d '{" + str + "}'";
   Process p;
   p.runShellCommand(strToSend);
   p.close();
 }
 
 /*
+  String strToSend = "curl -m 5 -k -X POST http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l -H 'Phant-Private-Key: D6n7nDkMYlFY1Exby4Mb' -d '{" + str + "}'";
+
 curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
   -H 'Phant-Private-Key: D6n7nDkMYlFY1Exby4Mb' \
   -d 'temp=91.4&humidity=86%25'
