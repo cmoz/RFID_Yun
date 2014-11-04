@@ -249,7 +249,7 @@
    setLEDsToLow(); // checks the state of the tagCards 
    
    // send recent tag scans to data.sparkfun
-   sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
+   //sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
   }
     
   // ************************************************************************************
@@ -324,7 +324,7 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
             if(data < 0x10) Serial.print(0);
             
             if (data == 0xF6 && 0x47 && 0x08 && 0xFC) tag1Card ^= true;             
-            if (data == 0x52 && 0x74 && 0x1E && 0x58) tag2Card ^= true;
+            if (data == 0x56 && 0x99 && 0x0A && 0xFC) tag2Card ^= true;
             if (data == 0xEB && 0xE8 && 0xDF && 0x03) tag3Card ^= true;
             if (data == 0xD2 && 0xB6 && 0x1E && 0x58) tag4Card ^= true; 
             if (data == 0x2A && 0xFF && 0xD7 && 0x09) tag5Card ^= true;
@@ -377,6 +377,7 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
                // EEPROM.write(MY_BOOL1, 1);
                driverName = "Mia Wallace";
                rfidNumber = tag1Card;
+               sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
                 delay(10);   
                 } else {
                   analogWrite(LED1, 40);
@@ -388,7 +389,8 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
                 digitalWrite(LED2, LOW);
                 //EEPROM.write(MY_BOOL2, 1);
                driverName = "Winston Wolfe";
-               rfidNumber = 7546737648;   
+               rfidNumber = tag2Card;   
+               sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
                 delay(10);               
                 } else {
                   analogWrite(LED2, 30);
@@ -399,7 +401,8 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
                 digitalWrite(LED3, LOW); 
                // EEPROM.write(MY_BOOL3, 1); 
                 driverName = "Jules Winnfield";
-                rfidNumber = 2494735624;
+                rfidNumber = tag3Card;
+                sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
                 delay(10);               
                 } else {
                   analogWrite(LED3, 200);
@@ -410,7 +413,8 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
                 digitalWrite(LED4, LOW); 
               //  EEPROM.write(MY_BOOL4, 1);
                 driverName = "Vincent Vega";
-                rfidNumber = 894735624;
+                rfidNumber = tag4Card;
+                sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
                 delay(10);                
                 } else {
                   analogWrite(LED4, 30);
@@ -421,7 +425,8 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
                 digitalWrite(LED5, LOW);  
              //   EEPROM.write(MY_BOOL5, 1);
                 driverName = "Marsellus Wallace";
-                rfidNumber = 4673566;
+                rfidNumber = tag5Card;               
+                sendRFIDataToSparkfun(driverName, String(rfidNumber), String(truckID));
                 delay(10);               
                 } else {
                   digitalWrite(LED5, HIGH);
