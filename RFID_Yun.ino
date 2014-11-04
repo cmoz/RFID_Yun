@@ -1,7 +1,7 @@
   // communication
   #include <Wire.h>
   // access EEPROM to store data
-  #include <EEPROM.h>
+ // #include <EEPROM.h>
   // communication bridge for Yun
   #include <Process.h>
 /*
@@ -26,7 +26,7 @@
  // scanned etc.
  
  // ++++++++++++++++++++++++++++++++++++++++ TO DO 
- // Amend EEPROM - send to an SD card and not to EEPROM
+ // Amend EEPROM - send to an SD card and not to EEPROM - non access?
  
   #define TAG A3 // A3
   
@@ -99,7 +99,7 @@
            
        // read the values written to EEPROM which is the last boolean
        // value from the scanned tags     
-       
+       /*
       int card1 = EEPROM.read(MY_BOOL1);
       int card2 = EEPROM.read(MY_BOOL2);
       int card3 = EEPROM.read(MY_BOOL3);
@@ -141,6 +141,7 @@
         driverName = "Marsellus Wallace";
         rfidNumber = 4673566;
       }
+      */
   
   Bridge.begin();	// Initialize the Bridge, for communication with linux chip.                          
   Serial.println("set up ready");  
@@ -322,7 +323,7 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
             byte data = Wire.read();
             if(data < 0x10) Serial.print(0);
             
-            if (data == 0xA2 && 0x8E && 0x1F && 0x58) tag1Card ^= true;             
+            if (data == 0xF6 && 0x47 && 0x08 && 0xFC) tag1Card ^= true;             
             if (data == 0x52 && 0x74 && 0x1E && 0x58) tag2Card ^= true;
             if (data == 0xEB && 0xE8 && 0xDF && 0x03) tag3Card ^= true;
             if (data == 0xD2 && 0xB6 && 0x1E && 0x58) tag4Card ^= true; 
@@ -373,47 +374,58 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
 
                 if (tag1Card == true) {
                 digitalWrite(LED1, LOW);  
-                EEPROM.write(MY_BOOL1, 1);
+               // EEPROM.write(MY_BOOL1, 1);
+               driverName = "Mia Wallace";
+               rfidNumber = tag1Card;
                 delay(10);   
                 } else {
                   analogWrite(LED1, 40);
-                  EEPROM.write(MY_BOOL1, 0);
+                //  EEPROM.write(MY_BOOL1, 0);
+
                 }
                                           
                 if (tag2Card == true) {
                 digitalWrite(LED2, LOW);
-                EEPROM.write(MY_BOOL2, 1);   
+                //EEPROM.write(MY_BOOL2, 1);
+               driverName = "Winston Wolfe";
+               rfidNumber = 7546737648;   
                 delay(10);               
                 } else {
                   analogWrite(LED2, 30);
-                  EEPROM.write(MY_BOOL2, 0);
+               //   EEPROM.write(MY_BOOL2, 0);
                 }
             
                 if (tag3Card == true) {
                 digitalWrite(LED3, LOW); 
-                EEPROM.write(MY_BOOL3, 1); 
+               // EEPROM.write(MY_BOOL3, 1); 
+                driverName = "Jules Winnfield";
+                rfidNumber = 2494735624;
                 delay(10);               
                 } else {
                   analogWrite(LED3, 200);
-                  EEPROM.write(MY_BOOL3, 0);
+              //    EEPROM.write(MY_BOOL3, 0);
                 }
         
                 if (tag4Card == true) {
                 digitalWrite(LED4, LOW); 
-                EEPROM.write(MY_BOOL4, 1);
+              //  EEPROM.write(MY_BOOL4, 1);
+                driverName = "Vincent Vega";
+                rfidNumber = 894735624;
                 delay(10);                
                 } else {
                   analogWrite(LED4, 30);
-                  EEPROM.write(MY_BOOL4, 0);
+              //    EEPROM.write(MY_BOOL4, 0);
                 }
             
                 if (tag5Card == true) {
                 digitalWrite(LED5, LOW);  
-                EEPROM.write(MY_BOOL5, 1);
+             //   EEPROM.write(MY_BOOL5, 1);
+                driverName = "Marsellus Wallace";
+                rfidNumber = 4673566;
                 delay(10);               
                 } else {
                   digitalWrite(LED5, HIGH);
-                  EEPROM.write(MY_BOOL5, 0);
+             //     EEPROM.write(MY_BOOL5, 0);
                 }
-  
+
 }
