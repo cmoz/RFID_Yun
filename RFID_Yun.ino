@@ -145,7 +145,7 @@
   
   Bridge.begin();	// Initialize the Bridge, for communication with linux chip.                          
   Serial.println("set up ready");  
-  setLEDsToLow();
+  //setLEDsToLow();
               
   }
 
@@ -164,87 +164,6 @@
 
   // Wait until tag is gone
   while(!digitalRead(TAG)); 
-  
-                  // what to do when ALL tags are scanned
-     if (tag1Card == true && tag2Card == true && tag3Card == true && tag4Card == true && tag5Card == true) {
-                  Serial.println("all tags scanned");
-                  int pinArray[] = {A2, 11, 10, 9, A4, A5};
-                  int count = 0;
-                  int timer = 10;
-                  int timer2 = 30;
-                  int timer3 = 90;
-                  
-            for (int i=0; i<5; i++){
-                  for (count=0;count<6;count++) {
-                  digitalWrite(pinArray[count], HIGH);
-                  delay(timer);
-                  digitalWrite(pinArray[count + 1], HIGH);
-                  delay(timer);
-                  digitalWrite(pinArray[count], LOW);
-                  delay(timer*2);
-                  }
-                 for (count=5;count>0;count--) {
-                 digitalWrite(pinArray[count], HIGH);
-                 delay(timer);
-                 digitalWrite(pinArray[count - 1], HIGH);
-                 delay(timer);
-                 digitalWrite(pinArray[count], LOW);
-                 delay(timer*2);
-                 }
-          }
-          
-           for (int i=0; i<3; i++){
-                  for (count=0;count<6;count++) {
-                  digitalWrite(pinArray[count], HIGH);
-                  delay(timer2);
-                  digitalWrite(pinArray[count + 1], HIGH);
-                  delay(timer2);
-                  digitalWrite(pinArray[count], LOW);
-                  delay(timer2*2);
-                  }
-                 for (count=5;count>0;count--) {
-                 digitalWrite(pinArray[count], HIGH);
-                 delay(timer2);
-                 digitalWrite(pinArray[count - 1], HIGH);
-                 delay(timer2);
-                 digitalWrite(pinArray[count], LOW);
-                 delay(timer2*2);
-                 }
-          }
-          
-           for (int i=0; i<1; i++){
-                  for (count=0;count<6;count++) {
-                  digitalWrite(pinArray[count], HIGH);
-                  delay(timer3);
-                  digitalWrite(pinArray[count + 1], HIGH);
-                  delay(timer3);
-                  digitalWrite(pinArray[count], LOW);
-                  delay(timer3*2);
-                  }
-                 for (count=5;count>0;count--) {
-                 digitalWrite(pinArray[count], HIGH);
-                 delay(timer3);
-                 digitalWrite(pinArray[count - 1], HIGH);
-                 delay(timer3);
-                 digitalWrite(pinArray[count], LOW);
-                 delay(timer3*2);
-                 }
-          }
-          
-          for (count=0;count<6;count++) {
-                  digitalWrite(pinArray[count], HIGH);
-                  delay(timer);
-                  digitalWrite(pinArray[count + 1], HIGH);
-                  delay(350);
-                  }
-                  
-                  for (count=0;count<6;count++) {
-                  digitalWrite(pinArray[count], LOW);
-                  digitalWrite(pinArray[count + 1], LOW);
-                  }
-          
-      }
-    
     
    setLEDsToLow(); // checks the state of the tagCards 
    
@@ -292,7 +211,7 @@ curl -X POST 'http://data.sparkfun.com/input/0lzWz1nqKaIqbYxlXn7l' \
     delay(5);
     //Serial.println("wait for response, !digitalRead(TAG)");
     // Anticipate maximum packet size
-    Wire.requestFrom(0x50, 11); // 11
+    Wire.requestFrom(0x50, 8); // 11
     if(Wire.available())
     {     
       // Get length of packet
