@@ -3,7 +3,7 @@ RFID_Yun
 
 reader and Yun board to send data over wifi
 
-RFID reader SL018 with the Yun Uses I2C
+RFID reader SL018 with the Yun Using Wire (I2C) interface.
 
 User Manual / Datasheet http://www.stronglink-rfid.com/download/SL018-User-Manual.pdf
 
